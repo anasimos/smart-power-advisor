@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Product
 
 
@@ -7,7 +6,7 @@ from .models import Product
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "category",
+        "product_type",
         "power_kw",
         "power_kva",
         "stock",
@@ -22,6 +21,8 @@ class ProductAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
-        "category",
+        "product_type",
         "active",
     )
+
+    ordering = ("name",)
