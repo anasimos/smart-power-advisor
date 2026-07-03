@@ -1,3 +1,4 @@
+from django.db.models import Q
 from .models import Product
 
 
@@ -6,12 +7,10 @@ class ProductService:
     @staticmethod
     def search(query):
         return Product.objects.filter(
-            name__icontains=query,
-            active=True,
+            active=True
+        ).filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query) |
+            Q(external_id__icontains=query) |
+            Q(internal_reference__icontains=query)
         )
-
-    @staticmethod
-    def get_by_external_id(external_id):
-        return Product.objects.filter(
-            external_id=external_id
-        ).first()
